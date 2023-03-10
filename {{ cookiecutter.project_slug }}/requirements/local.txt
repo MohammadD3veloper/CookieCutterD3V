@@ -1,0 +1,26 @@
+-r base.txt
+
+psycopg2_binary
+ipdb
+{%- if cookiecutter.use_async == 'y' or cookiecutter.use_celery == 'y' %}
+watchfiles
+{%- endif %}
+
+# Code quality
+flake8
+flake8-isort
+coverage
+black
+pylint-django
+{%- if cookiecutter.use_celery == 'y' %}
+pylint-celery
+{%- endif %}
+pre-commit
+
+
+# Django
+factory-boy
+django-debug-toolbar
+django-extensions
+django-coverage-plugin
+pytest-django

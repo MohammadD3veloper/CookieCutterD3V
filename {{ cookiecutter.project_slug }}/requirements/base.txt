@@ -1,0 +1,24 @@
+# Django
+Pillow
+django-channels
+{%- if cookiecutter.use_celery != "n" %}
+django-celery-results
+django-celery-beats
+{%- endif %}
+django-redis
+{%- if cookiecutter.api_framework == "RestFramework" %}
+djangorestframework
+drf-spectacular
+django-cors-headers
+{%- elif cookiecutter.api_framework == "GrapheneDjango" %}
+graphene_django
+{%- elif cookiecutter.api_framework == "DjangoGrpcFramework" %}
+djangogrpcframework
+{% elif cookiecutter.api_framework == "BasicHTML" %}
+django-crispy-forms
+crispy-bootstrap5
+{%- endif %}
+{%- if cookiecutter.use_async %}
+uvicorn
+asyncio
+{%- endif %}
