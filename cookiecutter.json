@@ -24,6 +24,8 @@
       "11",
       "10"
     ],
+    "postgres_user": "user",
+    "postgres_password": "password",
     "cloud_provider": [
       "AWS",
       "GCP",
