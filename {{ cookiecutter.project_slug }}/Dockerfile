@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED 1
 
 ENV PYTHONDONTWRITEBYTECODE 1
 
-ENV Environment=/app
+ENV Environment=/app/{{ cookiecutter.project_slug }}
 
 RUN mkdir -p ${Environment}
 
