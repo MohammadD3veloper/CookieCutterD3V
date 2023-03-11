@@ -109,14 +109,16 @@ TEMPLATES = [
     },
 ]
 
+# Wsgi application declaration
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-{%- if cookiecutter.use_channels -%}
-
+{%- if cookiecutter.use_channels %}
+# ASGI Application declaration
 ASGI_APPLICATION = 'config.asgi.application'
 
-{% endif %}
+{%- endif %}
+
 
 
 # Password validation
