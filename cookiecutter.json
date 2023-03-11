@@ -15,6 +15,7 @@
     ],
     "timezone": "UTC",
     "windows": "n",
+    "use_persian_django": "n",
     "use_pycharm": "n",
     "use_docker": "n",
     "postgresql_version": [
