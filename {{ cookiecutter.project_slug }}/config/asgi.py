@@ -23,7 +23,7 @@ application = ProtocolTypeRouter({
 })
 
 {%- else %}
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.django.base')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.django.production')
 
 application = get_asgi_application()
 {%- endif %}
