@@ -33,17 +33,14 @@ LOCAL_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    {%- if cookiecutter.use_channels %}
-    "daphne",
-    {%- endif  %}
     {%- if cookiecutter.use_celery != "n" %}
-    "django-celery-results",
-    "django-celery-beats",
+    "django_celery_results",
+    "django_celery_beat",
     {%- endif %}
     {%- if cookiecutter.api_framework == "RestFramework" %}
     "rest_framework",
     "rest_framework_simplejwt",
-    "drf-spectacular",
+    "drf_spectacular",
     "corsheaders",
     {%- elif cookiecutter.api_framework == "GrapheneDjango" %}
     "graphene_django",
@@ -65,6 +62,9 @@ DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    {%- if cookiecutter.use_channels %}
+    "daphne",
+    {%- endif  %}
     'django.contrib.staticfiles',
 ]
 

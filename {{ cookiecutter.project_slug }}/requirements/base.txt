@@ -11,6 +11,7 @@ django-celery-beats
 django-redis
 {%- if cookiecutter.api_framework == "RestFramework" %}
 djangorestframework
+django-filter
 markdown
 djangorestframework-simplejwt
 drf-spectacular
