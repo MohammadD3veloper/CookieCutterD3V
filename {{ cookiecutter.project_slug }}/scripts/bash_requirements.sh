@@ -33,7 +33,7 @@ function pkg_install {
 
 function readyup_virtualenv {
     if ! [ -d "../.{{ cookiecutter.project_slug }}" ]; then
-        virtualenv ../.{{ cookiecutter.project_slug }} | echo -e "[+] Creating virtualenv on parent directory with name: .{{ cookiecutter.project_slug }}"
+        cd .. && virtualenv .{{ cookiecutter.project_slug }} | echo -e "[+] Creating virtualenv on parent directory with name: .{{ cookiecutter.project_slug }}"
     else 
         echo -e "[+] Virtualenv .{{ cookiecutter.project_slug }} is already exists in parent directory."
     fi
@@ -46,7 +46,8 @@ function main {
     pkg_update
     pkg_install docker docker-compose python-virtualenv
     readyup_virtualenv
-    source ../.{{ cookiecutter.project_slug }}/bin/activate | echo -e "[*] Activating Virtualenv ..."
+    source ../.{{ cookiecutter.project_slug }}/bin/activate
+    echo -e "[!] if venv not activated yet, use: 'source ../.{{ cookiecutter.project_slug }}/bin/activate'"
     echo -e "[+] Everything is done :)"
 }
 
