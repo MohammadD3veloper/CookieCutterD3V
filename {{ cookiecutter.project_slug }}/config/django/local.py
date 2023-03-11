@@ -8,7 +8,7 @@ DEBUG = True
 # Allowed hosts
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
-{-% if cookiecutter.use_prometheus %}
+{%- if cookiecutter.use_prometheus %}
 # Database in local with Sqlite
 DATABASES = {
     'default': {
@@ -25,7 +25,7 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
-{-% else %}
+{%- else %}
 # Database in local with Sqlite
 DATABASES = {
     'default': {
@@ -42,6 +42,6 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
-{-% endif %}
+{%- endif %}
 
 CACHE_TTL = 60 * 15

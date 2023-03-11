@@ -9,7 +9,7 @@ DEBUG = False
 ALLOWED_HOSTS = [DOMAIN_NAME, f"www.{DOMAIN_NAME}"]
 
 
-{-% if cookiecutter.use_prometheus %}
+{%- if cookiecutter.use_prometheus %}
 # Database with postgresql
 DATABASES = {
     'default': {
@@ -30,7 +30,7 @@ CACHES = {
         'LOCATION': env("REDIS_URL"),
     }
 }
-{-% else %}
+{%- else %}
 # Database with postgresql
 DATABASES = {
     'default': {
@@ -51,7 +51,7 @@ CACHES = {
         'LOCATION': env("REDIS_URL"),
     }
 }
-{-% endif %}
+{%- endif %}
 
 CACHE_TTL = 60 * 15
 

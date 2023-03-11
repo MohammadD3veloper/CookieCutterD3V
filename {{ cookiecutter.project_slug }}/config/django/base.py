@@ -30,29 +30,29 @@ LOCAL_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    {-% if cookiecutter.use_channels %}
+    {%- if cookiecutter.use_channels %}
     "daphne",
-    {-% endif  %}
-    {-% if cookiecutter.use_celery != "n" %}
+    {%- endif  %}
+    {%- if cookiecutter.use_celery != "n" %}
     "django-celery-results",
     "django-celery-beats",
-    {-% endif %}
-    {-% if cookiecutter.api_framework == "RestFramework" %}
+    {%- endif %}
+    {%- if cookiecutter.api_framework == "RestFramework" %}
     "rest_framework",
     "rest_framework_simplejwt",
     "drf-spectacular",
     "corsheaders",
-    {-% elif cookiecutter.api_framework == "GrapheneDjango" %}
+    {%- elif cookiecutter.api_framework == "GrapheneDjango" %}
     "graphene_django",
-    {-% elif cookiecutter.api_framework == "DjangoGrpcFramework" %}
+    {%- elif cookiecutter.api_framework == "DjangoGrpcFramework" %}
     "django_grpc_framework",
-    {-% elif cookiecutter.api_framework == "BasicHTML" %}
+    {%- elif cookiecutter.api_framework == "BasicHTML" %}
     "django-crispy-forms",
     "crispy-bootstrap5",
-    {-% endif %}
-    {-% if cookiecutter.use_prometheus %}
+    {%- endif %}
+    {%- if cookiecutter.use_prometheus %}
     "django_prometheus",
-    {-% endif %}
+    {%- endif %}
 ]
 
 
@@ -70,22 +70,22 @@ INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 
 MIDDLEWARE = [
-    {-% if cookiecutter.use_prometheus %}
+    {%- if cookiecutter.use_prometheus %}
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
-    {-% endif %}
+    {%- endif %}
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    {-% if cookiecutter.api_framework == "RestFramework" %}
+    {%- if cookiecutter.api_framework == "RestFramework" %}
     'corsheaders.middleware.CorsMiddleware',
-    {-% endif %}
+    {%- endif %}
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    {-% if cookiecutter.use_prometheus %}
+    {%- if cookiecutter.use_prometheus %}
     'django_prometheus.middleware.PrometheusAfterMiddleware',    
-    {-% endif %}
+    {%- endif %}
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -107,9 +107,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-{-% if cookiecutter.use_channels %}
+{%- if cookiecutter.use_channels -%}
 ASGI_APPLICATION = 'config.asgi.application'
-{-% endif %}
+{% endif %}
 
 
 # Password validation
@@ -133,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
-{-% if cookiecutter.use_persian_django %}
+{%- if cookiecutter.use_persian_django %}
 LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'Asia/Tehran'
@@ -141,7 +141,7 @@ TIME_ZONE = 'Asia/Tehran'
 USE_I18N = True
 
 USE_TZ = True
-{-% else %}
+{%- else %}
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -149,7 +149,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-{-% endif %}
+{%- endif %}
 
 
 # Static files (CSS, JavaScript, Images)
@@ -173,7 +173,7 @@ MEDIA_URL = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-{-% if cookiecutter.api_framework == "RestFramework" %}
+{%- if cookiecutter.api_framework == "RestFramework" %}
 # Rest Framework Settings
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -190,12 +190,12 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
-{-% elif cookiecutter.api_framework == "DjangoGrpcFramework" %}
+{%- elif cookiecutter.api_framework == "DjangoGrpcFramework" %}
 GRPC_FRAMEWORK = {
     'ROOT_HANDLERS_HOOK': 'config.urls.grpc_handlers',
 }
 
-{-% elif cookiecutter.api_framework == "GrapheneDjango" %}
+{%- elif cookiecutter.api_framework == "GrapheneDjango" %}
 # Graphene & GrapheneJWT Configurations
 AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
@@ -226,7 +226,7 @@ GRAPHQL_JWT = {
     # optional
     "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
 }
-{-% endif %}
+{%- endif %}
 
 
 # You can remove the files from settings if you dont need them.
