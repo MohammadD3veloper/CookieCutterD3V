@@ -21,6 +21,9 @@ SECRET_KEY = env("SECRET_KEY")
 DOMAIN_NAME = env("DOMAIN_NAME")
 
 
+# DEBUG
+DEBUG = True
+
 # Application definition
 LOCAL_APPS = [
     "{{ cookiecutter.project_slug }}.accounts",
