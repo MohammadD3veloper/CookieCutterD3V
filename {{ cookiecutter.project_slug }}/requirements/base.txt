@@ -1,6 +1,9 @@
 # Django
+django-environ
 Pillow
-django-channels
+{%- if cookiecutter.use_channels %}
+channels["daphne"]
+{%- endif  %}
 {%- if cookiecutter.use_celery != "n" %}
 django-celery-results
 django-celery-beats
@@ -8,13 +11,20 @@ django-celery-beats
 django-redis
 {%- if cookiecutter.api_framework == "RestFramework" %}
 djangorestframework
+django-filter
+markdown
+djangorestframework-simplejwt
 drf-spectacular
 django-cors-headers
 {%- elif cookiecutter.api_framework == "GrapheneDjango" %}
 graphene_django
+django-graphql-jwt
 {%- elif cookiecutter.api_framework == "DjangoGrpcFramework" %}
 djangogrpcframework
-{% elif cookiecutter.api_framework == "BasicHTML" %}
+djangorestframework
+grpcio
+grpcio-tools
+{%- elif cookiecutter.api_framework == "BasicHTML" %}
 django-crispy-forms
 crispy-bootstrap5
 {%- endif %}

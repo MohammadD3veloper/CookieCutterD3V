@@ -11,45 +11,87 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from config.env import BASE_DIR, env
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y3d(-kfb+0y)(ckf^kqvvtbx8!k-oia-!08*c3pnc*w9q=!a@)'
+SECRET_KEY = env("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# website domain name
+DOMAIN_NAME = env("DOMAIN_NAME")
+
+
+# DEBUG
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
+LOCAL_APPS = [
+    "{{ cookiecutter.project_slug }}.accounts",
+    "{{ cookiecutter.project_slug }}.blog",
+    "{{ cookiecutter.project_slug }}.core",
+    "{{ cookiecutter.project_slug }}.utils",
+]
 
-INSTALLED_APPS = [
+THIRD_PARTY_APPS = [
+    {%- if cookiecutter.use_celery != "n" %}
+    "django_celery_results",
+    "django_celery_beat",
+    {%- endif %}
+    {%- if cookiecutter.api_framework == "RestFramework" %}
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "drf_spectacular",
+    "corsheaders",
+    {%- elif cookiecutter.api_framework == "GrapheneDjango" %}
+    "graphene_django",
+    {%- elif cookiecutter.api_framework == "DjangoGrpcFramework" %}
+    "django_grpc_framework",
+    {%- elif cookiecutter.api_framework == "BasicHTML" %}
+    "django-crispy-forms",
+    "crispy-bootstrap5",
+    {%- endif %}
+    {%- if cookiecutter.use_prometheus %}
+    "django_prometheus",
+    {%- endif %}
+]
+
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    {%- if cookiecutter.use_channels %}
+    "daphne",
+    {%- endif  %}
     'django.contrib.staticfiles',
 ]
 
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
+
+
 MIDDLEWARE = [
+    {%- if cookiecutter.use_prometheus %}
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    {%- endif %}
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    {%- if cookiecutter.api_framework == "RestFramework" %}
+    'corsheaders.middleware.CorsMiddleware',
+    {%- endif %}
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    {%- if cookiecutter.use_prometheus %}
+    'django_prometheus.middleware.PrometheusAfterMiddleware',    
+    {%- endif %}
 ]
 
-ROOT_URLCONF = '{{ cookiecutter.project_slug }}.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -67,18 +109,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = '{{ cookiecutter.project_slug }}.wsgi.application'
+# Wsgi application declaration
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+{%- if cookiecutter.use_channels %}
+# ASGI Application declaration
+ASGI_APPLICATION = 'config.asgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+{%- endif %}
+
 
 
 # Password validation
@@ -102,7 +142,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
+{%- if cookiecutter.use_persian_django %}
+LANGUAGE_CODE = 'fa-ir'
 
+TIME_ZONE = 'Asia/Tehran'
+
+USE_I18N = True
+
+USE_TZ = True
+{%- else %}
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -110,14 +158,89 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+{%- endif %}
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = 'static/'
+
+STATICFILES_DIR = [
+    BASE_DIR / 'static/'
+]
+
+
+# Media files (Uploaded Images, Uploaded files)
+MEDIA_ROOT = 'media/'
+MEDIA_URL = 'media/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+{%- if cookiecutter.api_framework == "RestFramework" %}
+# Rest Framework Settings
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+{%- elif cookiecutter.api_framework == "DjangoGrpcFramework" %}
+GRPC_FRAMEWORK = {
+    'ROOT_HANDLERS_HOOK': 'config.urls.grpc_handlers',
+}
+
+{%- elif cookiecutter.api_framework == "GrapheneDjango" %}
+# Graphene & GrapheneJWT Configurations
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+GRAPHENE = {
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+    "ATOMIC_MUTATIONS": True,
+}
+
+GRAPHQL_JWT = {
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_ALLOW_ANY_CLASSES": [
+            "graphql_auth.mutations.Register",
+            "graphql_auth.mutations.VerifyAccount",
+            "graphql_auth.mutations.ResendActivationEmail",
+            "graphql_auth.mutations.SendPasswordResetEmail",
+            "graphql_auth.mutations.PasswordReset",
+            "graphql_auth.mutations.ObtainJSONWebToken",
+            "graphql_auth.mutations.VerifyToken",
+            "graphql_auth.mutations.RefreshToken",
+            "graphql_auth.mutations.RevokeToken",
+            "graphql_auth.mutations.VerifySecondaryEmail",
+        ],
+    # optional
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+}
+{%- endif %}
+
+
+# You can remove the files from settings if you dont need them.
+from config.settings.celery import *
+from config.settings.cors import *
+from config.settings.email import *
+from config.settings.prometheus import *
+from config.settings.spectacular import *

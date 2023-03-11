@@ -12,5 +12,7 @@ if ! [ $(command -v glow) == 0 ] then
 
 # Run glow to show markdown files
 else
-    glow 
+    glow About.md
+    glow Development.md
+    glow Production.md
 fi
