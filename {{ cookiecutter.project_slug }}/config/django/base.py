@@ -107,6 +107,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
 {%- if cookiecutter.use_channels -%}
 ASGI_APPLICATION = 'config.asgi.application'
 {% endif %}
