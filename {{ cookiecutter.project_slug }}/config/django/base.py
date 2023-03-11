@@ -239,8 +239,8 @@ GRAPHQL_JWT = {
 
 
 # You can remove the files from settings if you dont need them.
-from settings.celery import *
-from settings.cors import *
-from settings.email import *
-from settings.prometheus import *
-from settings.spectacular import *
+from config.settings.celery import *
+from config.settings.cors import *
+from config.settings.email import *
+from config.settings.prometheus import *
+from config.settings.spectacular import *
