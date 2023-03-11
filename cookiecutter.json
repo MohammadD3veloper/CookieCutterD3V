@@ -13,10 +13,7 @@
       "Apache Software License 2.0",
       "Not open source"
     ],
-    "timezone": "UTC",
-    "windows": "n",
     "use_persian_django": "n",
-    "use_pycharm": "n",
     "use_docker": "n",
     "postgresql_version": [
       "14",
@@ -33,17 +30,6 @@
       "Azure",
       "None"
     ],
-    "mail_service": [
-      "Mailgun",
-      "Amazon SES",
-      "Mailjet",
-      "Mandrill",
-      "Postmark",
-      "Sendgrid",
-      "SendinBlue",
-      "SparkPost",
-      "Other SMTP"
-    ],
     "use_async": "n",
     "use_channels": "n",
     "api_framework": [
@@ -52,26 +38,7 @@
         "GrapheneDjango",
         "BasicHTML"
     ],
-    "cssframework":[
-        "tailwind",
-        "bootstrap"
-    ],
-    "frontend_pipeline": [
-      "None",
-      "Django Compressor",
-      "Gulp",
-      "Webpack"
-    ],
     "use_celery": "n",
-    "use_payment": "n",
     "use_prometheus": "n",
-    "use_whitenoise": "n",
-    "ci_tool": [
-      "None",
-      "Travis",
-      "Gitlab",
-      "Github"
-    ],
-    "keep_local_envs_in_vcs": "y",
-    "debug": "n"
+    "use_whitenoise": "n"
 }
