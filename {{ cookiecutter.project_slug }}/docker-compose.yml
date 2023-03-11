@@ -22,7 +22,7 @@ services:
   django:
     build:
       context: .
-      dockerfile: .Dockerfile
+      dockerfile: Dockerfile
     volumes:
       - .:/app
     ports:
@@ -30,12 +30,15 @@ services:
     depends_on:
       - db
       - rabbitmq
+      {%- if cookiecutter.use_celery  %}
+      - celery
+      {%- endif %}
     restart: on-failure
-
+{%- if cookiecutter.use_celery %}
   celery:
     build:
       context: .
-      dockerfile: .Dockerfile
+      dockerfile: Dockerfile
     command: celery -A {{cookiecutter.project_slug}}.tasks worker -l info --without-gossip --without-mingle --without-heartbeat
     volumes:
       - .:/app
@@ -47,7 +50,7 @@ services:
   beats:
     build:
       context: .
-      dockerfile: .Dockerfile
+      dockerfile: Dockerfile
     command: celery -A {{cookiecutter.project_slug}}.tasks beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - .:/app
@@ -55,17 +58,16 @@ services:
       - db
       - rabbitmq
     restart: on-failure
-
+{%- endif %}
   redis:
     image: redis:7
     ports:
       - 6379:6379
     volumes:
       - .:/app
-
+{%- if cookiecutter.use_prometheus %}
   prometheus:
     image: prom/prometheus
-    container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
@@ -84,3 +86,4 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     volumes:
       - .:/app
+{%- endif %}

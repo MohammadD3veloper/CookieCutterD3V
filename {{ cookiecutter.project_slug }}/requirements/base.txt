@@ -2,11 +2,11 @@
 django-environ
 Pillow
 {%- if cookiecutter.use_channels %}
-channels["daphne"]
+channels[daphne]
 {%- endif  %}
 {%- if cookiecutter.use_celery != "n" %}
 django-celery-results
-django-celery-beats
+django-celery-beat
 {%- endif %}
 django-redis
 {%- if cookiecutter.api_framework == "RestFramework" %}
