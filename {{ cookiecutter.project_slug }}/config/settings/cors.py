@@ -1,12 +1,12 @@
 # Cors configurations
 CORS_ALLOWED_ORIGINS = [
-    f"http://{DOMAIN_NAME}",
+    f"http://{{ cookiecutter.domain_name }}",
     "http://localhost:8080",
     "http://127.0.0.1:9000",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    f"http://{DOMAIN_NAME}",
+    f"http://{{ cookiecutter.domain_name }}",
     "http://localhost:8000",
     "http://127.0.0.1:9000",
 ]
