@@ -3,7 +3,7 @@ import os
 import shutil
 import yaml
 
-MANIFEST = "/".join(os.getcwd().split('/')[0:-1]) + '/manifest.yaml'
+MANIFEST = "/".join(os.getcwd().split('/')[0:-1]) + '/manifest.yml'
 print(MANIFEST)
 
 
