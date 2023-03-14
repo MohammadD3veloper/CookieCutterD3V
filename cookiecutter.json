@@ -13,8 +13,8 @@
       "Apache Software License 2.0",
       "Not open source"
     ],
-    "use_persian_django": [true, false],
-    "use_docker": [true, false],
+    "use_persian_django": "n",
+    "use_docker": "n",
     "postgresql_version": [
       "14",
       "13",
@@ -24,16 +24,16 @@
     ],
     "postgres_user": "user",
     "postgres_password": "password",
-    "use_async": [true, false],
-    "use_channels": [true, false],
+    "use_async": "n",
+    "use_channels": "n",
     "api_framework": [
         "RestFramework",
         "DjangoGrpcFramework",
         "GrapheneDjango",
         "BasicHTML"
     ],
-    "use_celery": [true, false],
-    "use_prometheus": [true, false],
-    "use_whitenoise": [true, false],
-    "use_automattion_script": [true, false]
+    "use_celery": "n",
+    "use_prometheus": "n",
+    "use_whitenoise": "n",
+    "use_automattion_script": "n"
 }
