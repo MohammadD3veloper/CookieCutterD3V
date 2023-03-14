@@ -12,12 +12,12 @@ def delete_resources_for_disabled_features():
     with open(MANIFEST) as manifest_file:
         manifest = yaml.load(manifest_file, Loader=yaml.FullLoader)
         for feature in  manifest['features']:
-            if feature['enabled']:
+            if feature.get('enabled'):
                 if not feature['enabled']:
                     print(f"[!] Removing unnecessary sources : {resource}")
                     for resource in feature['resources']:
                         delete_resource(resource)
-            elif feature['technology']:
+            elif feature.get('technology'):
                 if feature['technology'] == "BasicHTML":
                     for resource in feature['resources']:
                         delete_resource(resource)
