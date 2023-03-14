@@ -10,7 +10,7 @@ def delete_resources_for_disabled_features():
     """ Deleting unnecessary files after 
         cookiecutter files generation """
     with open(MANIFEST) as manifest_file:
-        manifest = yaml.load(manifest_file)
+        manifest = yaml.load(manifest_file, Loader=yaml.FullLoader)
         for feature in  manifest['features']:
             if feature['enabled']:
                 if not feature['enabled']:
