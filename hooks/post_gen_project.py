@@ -3,8 +3,7 @@ import os
 import shutil
 import yaml
 
-MANIFEST = "/".join(os.getcwd().split('/')[0:-1]) + '/manifest.yml'
-print(MANIFEST)
+MANIFEST = 'manifest.yml'
 
 
 def delete_resources_for_disabled_features():
