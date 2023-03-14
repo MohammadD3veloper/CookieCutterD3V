@@ -1,0 +1,24 @@
+features:
+  - name: use_docker
+    enabled: {{cookiecutter.use_docker|lower}}
+    resources:
+      - "Dockerfile"
+      - "docker-compose.yml"
+  - name: api_framework
+    technology: {{cookiecutter.api_framework|lower}}
+    resources:
+      - "config/settings/cors.py"
+      - "config/settings/spectacular.py"
+  - name: use_celery
+    enabled: {{cookiecutter.use_celery|lower}}
+    resources:
+      - "config/settings/celery.py"
+      - "config/celery_app.py"
+  - name: use_prometheus
+    enabled: {{cookiecutter.use_prometheus|lower}}
+    resources:
+      - "config/settings/prometheus.py"
+  - name: use_automattion_script
+    enabled: 
+    resources:
+      - "scripts/bash_requirements.sh"
