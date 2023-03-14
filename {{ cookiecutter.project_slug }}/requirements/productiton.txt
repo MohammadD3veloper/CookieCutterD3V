@@ -6,11 +6,3 @@ whitenoise
 gunicorn
 django-webpack-loader
 django-compressor
-
-{%- if cookiecutter.cloud_provider == 'AWS' %}
-django-storages[boto3]
-{%- elif cookiecutter.cloud_provider == 'GCP' %}
-django-storages[google]
-{%- elif cookiecutter.cloud_provider == 'Azure' %}
-django-storages[azure]
-{%- endif %}
