@@ -26,10 +26,10 @@ DEBUG = True
 
 # Application definition
 LOCAL_APPS = [
-    "{{ cookiecutter.project_slug }}.accounts",
-    "{{ cookiecutter.project_slug }}.blog",
-    "{{ cookiecutter.project_slug }}.core",
-    "{{ cookiecutter.project_slug }}.utils",
+    "{{ cookiecutter.project_slug }}.accounts.apps.AccountsConfig",
+    "{{ cookiecutter.project_slug }}.blog.apps.BlogConfig",
+    "{{ cookiecutter.project_slug }}.core.apps.CoreConfig",
+    "{{ cookiecutter.project_slug }}.utils.apps.UtilsConfig",
 ]
 
 THIRD_PARTY_APPS = [
