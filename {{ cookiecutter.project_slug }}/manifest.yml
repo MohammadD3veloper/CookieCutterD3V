@@ -9,6 +9,7 @@ features:
     resources:
       - "config/settings/cors.py"
       - "config/settings/spectacular.py"
+    othersources:
       - "static/"
       - "templates/"
   - name: use_celery

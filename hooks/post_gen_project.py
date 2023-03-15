@@ -20,6 +20,9 @@ def delete_resources_for_disabled_features():
                 if feature['technology'] == "BasicHTML":
                     for resource in feature['resources']:
                         delete_resource(resource)
+                else:
+                    for resource in feature['othersources']:
+                        delete_resource(resource)
     print("[+] Cleanup completed, removing manifest")
     delete_resource(MANIFEST)
 
