@@ -4,7 +4,7 @@ psycopg2
 {%- if cookiecutter.use_prometheus != "n" %}
 django-prometheus
 {%- endif %}
-{%- if cookiecutter.use_whitenoise %}
+{%- if cookiecutter.use_whitenoise != "n" %}
 whitenoise
 {%- endif %}
 gunicorn

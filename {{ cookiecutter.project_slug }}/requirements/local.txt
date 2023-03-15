@@ -24,6 +24,6 @@ django-debug-toolbar
 django-extensions
 django-coverage-plugin
 pytest-django
-{%- if cookiecutter.use_prometheus %}
+{%- if cookiecutter.use_prometheus != "n" %}
 django-prometheus
 {%- endif %}
