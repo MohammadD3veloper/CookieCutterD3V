@@ -1,12 +1,18 @@
 # Cors configurations
+from config.env import env
+
+
+DOMAIN_NAME = env('DOMAIN_NAME')
+
+
 CORS_ALLOWED_ORIGINS = [
-    f"http://{{ cookiecutter.domain_name }}",
+    f"http://{DOMAIN_NAME}",
     "http://localhost:8080",
     "http://127.0.0.1:9000",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    f"http://{{ cookiecutter.domain_name }}",
+    f"http://{DOMAIN_NAME}",
     "http://localhost:8000",
     "http://127.0.0.1:9000",
 ]

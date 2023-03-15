@@ -55,6 +55,7 @@ CACHES = {
 
 CACHE_TTL = 60 * 15
 
+{%- if cookiecutter.use_logging_system %}
 
 LOGGING = {
     'version': 1,

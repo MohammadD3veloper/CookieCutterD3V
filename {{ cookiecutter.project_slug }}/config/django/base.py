@@ -33,7 +33,7 @@ LOCAL_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    {%- if cookiecutter.use_celery != "n" %}
+    {%- if cookiecutter.use_celery %}
     "django_celery_results",
     "django_celery_beat",
     {%- endif %}

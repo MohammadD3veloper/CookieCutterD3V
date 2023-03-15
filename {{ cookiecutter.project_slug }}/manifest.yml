@@ -9,6 +9,8 @@ features:
     resources:
       - "config/settings/cors.py"
       - "config/settings/spectacular.py"
+      - "static/"
+      - "templates/"
   - name: use_celery
     enabled: {{cookiecutter.use_celery|lower}}
     resources:
@@ -18,7 +20,11 @@ features:
     enabled: {{cookiecutter.use_prometheus|lower}}
     resources:
       - "config/settings/prometheus.py"
-  - name: use_automattion_script
-    enabled: 
+  - name: use_automation_script
+    enabled: {{ cookiecutter.use_automation_script }} 
     resources:
       - "scripts/bash_requirements.sh"
+  -name: use_logging_system
+    enabled: {{ cookiecutter.use_logging_system }}
+    resources: 
+      - "log/"
