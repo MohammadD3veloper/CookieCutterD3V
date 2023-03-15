@@ -14,7 +14,6 @@ def delete_resources_for_disabled_features():
         for feature in  manifest['features']:
             if feature.get('enabled'):
                 if feature['enabled'] == "n":
-                    print(f"[!] Removing unnecessary sources : {resource}")
                     for resource in feature['resources']:
                         delete_resource(resource)
             elif feature.get('technology'):
