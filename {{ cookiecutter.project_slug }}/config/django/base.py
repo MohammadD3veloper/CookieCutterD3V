@@ -33,7 +33,7 @@ LOCAL_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    {%- if cookiecutter.use_celery %}
+    {%- if cookiecutter.use_celery != "n" %}
     "django_celery_results",
     "django_celery_beat",
     {%- endif %}
@@ -50,7 +50,7 @@ THIRD_PARTY_APPS = [
     "django-crispy-forms",
     "crispy-bootstrap5",
     {%- endif %}
-    {%- if cookiecutter.use_prometheus %}
+    {%- if cookiecutter.use_prometheus != "n" %}
     "django_prometheus",
     {%- endif %}
 ]
@@ -62,7 +62,7 @@ DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    {%- if cookiecutter.use_channels %}
+    {%- if cookiecutter.use_channels != "n" %}
     "daphne",
     {%- endif  %}
     'django.contrib.staticfiles',
@@ -73,7 +73,7 @@ INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 
 MIDDLEWARE = [
-    {%- if cookiecutter.use_prometheus %}
+    {%- if cookiecutter.use_prometheus != "n" %}
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     {%- endif %}
     'django.middleware.security.SecurityMiddleware',
@@ -86,7 +86,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    {%- if cookiecutter.use_prometheus %}
+    {%- if cookiecutter.use_prometheus != "n" %}
     'django_prometheus.middleware.PrometheusAfterMiddleware',    
     {%- endif %}
 ]
@@ -113,7 +113,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-{%- if cookiecutter.use_channels %}
+{%- if cookiecutter.use_channels != "n" %}
 # ASGI Application declaration
 ASGI_APPLICATION = 'config.asgi.application'
 
@@ -142,7 +142,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
-{%- if cookiecutter.use_persian_django %}
+{%- if cookiecutter.use_persian_django != "n" %}
 LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'Asia/Tehran'
@@ -239,8 +239,14 @@ GRAPHQL_JWT = {
 
 
 # You can remove the files from settings if you dont need them.
+{%- if cookiecutter.use_celery != "n" %}
 from config.settings.celery import *
+{%- endif %}
+{%- if cookiecutter.api_framework != "RestFramework" %}
 from config.settings.cors import *
-from config.settings.email import *
-from config.settings.prometheus import *
 from config.settings.spectacular import *
+{%- endif %}
+from config.settings.email import *
+{%- if cookiecutter.use_prometheus != "n" %}
+from config.settings.prometheus import *
+{%- endif %}

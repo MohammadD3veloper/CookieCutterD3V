@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 import os
 
 from django.core.asgi import get_asgi_application
-{%- if cookiecutter.use_channels %}
+{%- if cookiecutter.use_channels != "n" %}
 from channels.routing import ProtocolTypeRouter
 
 

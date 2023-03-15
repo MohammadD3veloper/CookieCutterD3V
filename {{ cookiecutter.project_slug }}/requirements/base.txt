@@ -1,7 +1,7 @@
 # Django
 django-environ
 Pillow
-{%- if cookiecutter.use_channels %}
+{%- if cookiecutter.use_channels != "n" %}
 channels[daphne]
 {%- endif  %}
 {%- if cookiecutter.use_celery != "n" %}
@@ -28,7 +28,7 @@ grpcio-tools
 django-crispy-forms
 crispy-bootstrap5
 {%- endif %}
-{%- if cookiecutter.use_async %}
+{%- if cookiecutter.use_async != "n" %}
 uvicorn
 asyncio
 {%- endif %}

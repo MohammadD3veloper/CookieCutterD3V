@@ -9,7 +9,7 @@ DEBUG = False
 ALLOWED_HOSTS = [DOMAIN_NAME, f"www.{DOMAIN_NAME}"]
 
 
-{%- if cookiecutter.use_prometheus %}
+{%- if cookiecutter.use_prometheus != "n" %}
 # Database with postgresql
 DATABASES = {
     'default': {
@@ -55,7 +55,7 @@ CACHES = {
 
 CACHE_TTL = 60 * 15
 
-{%- if cookiecutter.use_logging_system %}
+{%- if cookiecutter.use_logging_system != "n" %}
 
 LOGGING = {
     'version': 1,

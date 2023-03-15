@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
 {%- if cookiecutter.api_framework == "GrapheneDjango" %}
 from graphene_django.views import GraphQLView
 {%- elif cookiecutter.api_framework == "RestFramework" %}
@@ -33,7 +34,7 @@ urlpatterns = [
     {%- elif cookiecutter.api_framework == "GrapheneDjango" %}
     path("graphql/", GraphQLView.as_view(graphiql=True)),
     {%- endif %}
-    {%- if cookiecutter.use_prometheus %}
+    {%- if cookiecutter.use_prometheus != "n" %}
     path('prometheus/', include('django_prometheus.urls')),
     {%- endif %}    
 ]

@@ -9,7 +9,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
-{%- if cookiecutter.use_prometheus %}
+{%- if cookiecutter.use_prometheus != "n" %}
 # Database in local with Sqlite
 DATABASES = {
     'default': {
