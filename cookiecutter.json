@@ -36,5 +36,5 @@
     "use_logging_system": "n",
     "use_prometheus": "n",
     "use_whitenoise": "n",
-    "use_automattion_script": "n"
+    "use_automation_script": "n"
 }
