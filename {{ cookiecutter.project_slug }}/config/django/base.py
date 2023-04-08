@@ -48,6 +48,9 @@ THIRD_PARTY_APPS = [
     "django-crispy-forms",
     "crispy-bootstrap5",
     {%- endif %}
+    {%- if cookiecutter.use_debug_toolbar %}
+    "debug_toolbar",
+    {%- endif %}
     {%- if cookiecutter.use_prometheus != "n" %}
     "django_prometheus",
     {%- endif %}
@@ -85,6 +88,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    {%- if cookiecutter.use_debug_toolbar != "n" %}
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    {%- endif %}
     {%- if cookiecutter.use_prometheus != "n" %}
     'django_prometheus.middleware.PrometheusAfterMiddleware',    
     {%- endif %}
@@ -183,6 +189,12 @@ MEDIA_URL = 'media/'
 DOCS_ROOT = "documents/build/html/"
 DOCS_ACCESS = "superuser"
 
+
+{%- if cookiecutter.use_debug_toolbar != "n" %}
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+{%- endif %}
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

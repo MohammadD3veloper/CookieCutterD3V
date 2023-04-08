@@ -48,4 +48,7 @@ urlpatterns = [
     {%- if cookiecutter.use_prometheus != "n" %}
     path('prometheus/', include('django_prometheus.urls')),
     {%- endif %}
+    {%- if cookiecutter.use_debug_toolbar != "n" %}
+    path('__debug__', include('debug_toolbar.urls'))
+    {%- endif %}
 ]
