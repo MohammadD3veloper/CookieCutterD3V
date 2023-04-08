@@ -2,7 +2,7 @@ from .base import *
 
 
 # Debug should be False in production mode
-DEBUG = False
+DEBUG = env("SETTINGS_DEBUG")
 
 
 # Allowed hosts (Set your domain here)

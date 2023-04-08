@@ -1,8 +1,8 @@
 # Django
-django-environ
-Pillow
+django-environ>=0.9.0,<=0.10.0
+Pillow>=9.3.0
 {%- if cookiecutter.use_channels != "n" %}
-channels[daphne]
+channels[daphne]>=3.0
 {%- endif  %}
 {%- if cookiecutter.use_celery != "n" %}
 django-celery-results

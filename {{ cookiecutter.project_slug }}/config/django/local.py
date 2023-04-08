@@ -2,7 +2,7 @@ from .base import *
 
 
 # Debug should be True in local mode
-DEBUG = True
+DEBUG = env("SETTINGS_DEBUG")
 
 
 # Allowed hosts

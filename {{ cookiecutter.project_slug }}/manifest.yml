@@ -9,6 +9,8 @@ features:
     resources:
       - "config/settings/cors.py"
       - "config/settings/spectacular.py"
+      - "{{ cookiecutter.project_slug }}/authentication/apis"
+      - "{{ cookiecutter.project_slug }}/core/jwt.py"
     othersources:
       - "static/"
       - "templates/"

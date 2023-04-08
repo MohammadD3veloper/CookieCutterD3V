@@ -15,26 +15,37 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.static import serve
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 {%- if cookiecutter.api_framework == "GrapheneDjango" %}
 from graphene_django.views import GraphQLView
 {%- elif cookiecutter.api_framework == "RestFramework" %}
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 {%- endif %}
 
 
 urlpatterns = [
-    path('{{ cookiecutter.project_slug }}/SecurePanel/ui/', admin.site.urls),
+    path('{{ cookiecutter.project_slug }}', include([
+        path('Secure/Panel/admin/ui/', admin.site.urls),
+        path('Secure/Documentations/ui/', login_required(serve), {'document_root': settings.DOCUMENTS_ROOT})
+    ])),
     {%- if cookiecutter.api_framework == "RestFramework" %}
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    # Optional UI:
-    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include([
+        path('schema/', SpectacularAPIView.as_view(), name='schema'),
+        path('schema/ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+        path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+        path('authentication/token/', include([
+            path('refresh/', TokenRefreshView.as_view(), name="refresh_token"),
+            path('access/', TokenObtainPairView.as_view(), name="access_token"),
+        ])),
+    ])),
     {%- elif cookiecutter.api_framework == "GrapheneDjango" %}
     path("graphql/", GraphQLView.as_view(graphiql=True)),
     {%- endif %}
     {%- if cookiecutter.use_prometheus != "n" %}
     path('prometheus/', include('django_prometheus.urls')),
-    {%- endif %}    
+    {%- endif %}
 ]

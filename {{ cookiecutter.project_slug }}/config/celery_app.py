@@ -2,13 +2,13 @@ import os
 
 from celery import Celery
 
-from django.conf import settings
+from .env import env
 
 
 # Set the default Django settings module for the 'celery' program.
-if settings.DEBUG:
+if env("SETTINGS_DEBUG") is True:
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.django.local')
-else:
+elif env("SETTINGS_DEBUG") is False:
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.django.production')
 
 

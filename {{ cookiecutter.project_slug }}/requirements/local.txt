@@ -20,7 +20,9 @@ pre-commit
 
 # Django
 factory-boy
+{%- if cookiecutter.use_debug_toolbar != "n" %}
 django-debug-toolbar
+{%- endif %} 
 django-extensions
 django-coverage-plugin
 pytest-django

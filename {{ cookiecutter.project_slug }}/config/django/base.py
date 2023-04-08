@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
 from config.env import BASE_DIR, env
 
 
@@ -22,12 +21,11 @@ DOMAIN_NAME = env("DOMAIN_NAME")
 
 
 # DEBUG
-DEBUG = True
+DEBUG = env("SETTINGS_DEBUG")
 
 # Application definition
 LOCAL_APPS = [
-    "{{ cookiecutter.project_slug }}.accounts.apps.AccountsConfig",
-    "{{ cookiecutter.project_slug }}.blog.apps.BlogConfig",
+    "{{ cookiecutter.project_slug }}.accounts.apps.AuthenticationConfig",
     "{{ cookiecutter.project_slug }}.core.apps.CoreConfig",
     "{{ cookiecutter.project_slug }}.utils.apps.UtilsConfig",
 ]
@@ -176,6 +174,9 @@ STATICFILES_DIR = [
 MEDIA_ROOT = 'media/'
 MEDIA_URL = 'media/'
 
+
+# Documents Root
+DOCUMENTS_ROOT = "documents/build/html/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
