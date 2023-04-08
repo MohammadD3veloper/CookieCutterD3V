@@ -5,6 +5,5 @@ eg: test_models.py, test_apis.py, test_views.py
 """
 
 
-def sample_test():
-    """ Sample test """
+def test_example():
     assert 1 == 1
