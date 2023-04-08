@@ -10,8 +10,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 
+DEBUG = os.environ.get("DJANGO_DEBUG")
 
-if env("SETTINGS_DEBUG") is True:
+if DEBUG == "true":
     env.read_env(os.path.join(BASE_DIR, '.env/.local.env'))
-elif env("SETTINGS_DEBUG") is False:
+elif DEBUG == "false":
     env.read_env(os.path.join(BASE_DIR, '.env/.production.env'))

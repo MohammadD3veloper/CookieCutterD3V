@@ -25,7 +25,7 @@ DEBUG = env("SETTINGS_DEBUG")
 
 # Application definition
 LOCAL_APPS = [
-    "{{ cookiecutter.project_slug }}.accounts.apps.AuthenticationConfig",
+    "{{ cookiecutter.project_slug }}.authentication.apps.AuthenticationConfig",
     "{{ cookiecutter.project_slug }}.core.apps.CoreConfig",
     "{{ cookiecutter.project_slug }}.utils.apps.UtilsConfig",
 ]
@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
     {%- if cookiecutter.use_prometheus != "n" %}
     "django_prometheus",
     {%- endif %}
+    "docs",
 ]
 
 
@@ -176,7 +177,8 @@ MEDIA_URL = 'media/'
 
 
 # Documents Root
-DOCUMENTS_ROOT = "documents/build/html/"
+DOCS_ROOT = "documents/build/html/"
+DOCS_ACCESS = "superuser"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

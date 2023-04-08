@@ -20,18 +20,17 @@ class UserManager(BaseUserManager):
             **extra_fields
         )
 
-        user.full_clean()
         user.save(using=self._db)
         return user
 
     def create_user(self, username, password=None, **extra_fields):
         extra_fields.setdefault('is_active', False)
-        return self._create_user(username, password, extra_fields)
+        return self._create_user(username, password, **extra_fields)
 
     def create_superuser(self, username, password=None, **extra_fields):
         extra_fields.setdefault('is_admin', True)
         extra_fields.setdefault('is_active', True)
-        return self._create_user(username, password, extra_fields)
+        return self._create_user(username, password, **extra_fields)
 
 
 
@@ -51,6 +50,14 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
+    USERNAME_FIELD = "username"
+
+    objects = UserManager()
+
     @property
     def is_staff(self):
+        return self.is_admin
+
+    @property
+    def is_superuser(self):
         return self.is_admin

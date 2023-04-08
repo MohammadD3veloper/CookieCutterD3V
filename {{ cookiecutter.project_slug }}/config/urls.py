@@ -28,9 +28,9 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 
 urlpatterns = [
-    path('{{ cookiecutter.project_slug }}', include([
+    path('{{ cookiecutter.project_slug }}/', include([
         path('Secure/Panel/admin/ui/', admin.site.urls),
-        path('Secure/Documentations/ui/', login_required(serve), {'document_root': settings.DOCUMENTS_ROOT})
+        path('Secure/Documentations/ui/', include("docs.urls"))
     ])),
     {%- if cookiecutter.api_framework == "RestFramework" %}
     path('api/', include([
