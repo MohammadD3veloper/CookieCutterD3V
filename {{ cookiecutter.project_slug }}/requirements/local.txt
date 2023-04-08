@@ -12,6 +12,7 @@ flake8-isort
 coverage
 black
 pylint-django
+pytest-django
 {%- if cookiecutter.use_celery == 'y' %}
 pylint-celery
 {%- endif %}

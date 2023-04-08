@@ -119,6 +119,9 @@ ASGI_APPLICATION = 'config.asgi.application'
 {%- endif %}
 
 
+# Custom authentication user model
+AUTH_USER_MODEL = "authentication.User"
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
